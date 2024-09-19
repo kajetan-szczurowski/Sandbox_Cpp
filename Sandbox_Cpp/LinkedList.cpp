@@ -4,6 +4,14 @@
 struct Node {
 	int value;
 	std::unique_ptr<Node> next;
+
+	Node(int initialValue) {
+		value = initialValue;
+	}
+
+	Node() {
+		value = 0;
+	}
 };
 
 Node makeNewNode(int value) {
@@ -13,13 +21,17 @@ Node makeNewNode(int value) {
 }
 
 void workWithLinkedList() {
-	std::cout << "Hi \n";
+	//std::cout << "Hi \n";
 	Node node1 = makeNewNode(5);
-	Node node2 = makeNewNode(8);
-	std::cout << node1.value;
-	//node1.next = std::make_unique<Node>(node2);
-	//Node* currentNode = &node1;
-	//std::cout << currentNode->value << " \n";
+	//Node node2 = makeNewNode(8);
+	//std::cout << node1.value;
+	std::unique_ptr<Node> start = std::make_unique<Node>(8);
+	start->next = std::make_unique<Node>(8);
+	
+	std::unique_ptr<Node> currentNode = start;
+
+	std::cout << currentNode->value << " \n";
+	currentNode = currentNode->next;
 
 	std::cin.get();
 }
