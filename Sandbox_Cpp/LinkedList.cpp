@@ -16,9 +16,10 @@ void workWithLinkedList() {
 	std::cout << "Hi \n";
 	Node node1 = makeNewNode(5);
 	Node node2 = makeNewNode(8);
-	node1.next = std::make_unique<Node>(node2);
-	Node* currentNode = &node1;
-	std::cout << currentNode->value << " \n";
+	std::cout << node1.value;
+	//node1.next = std::make_unique<Node>(node2);
+	//Node* currentNode = &node1;
+	//std::cout << currentNode->value << " \n";
 
 	std::cin.get();
 }
