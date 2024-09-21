@@ -1,6 +1,7 @@
 #include <memory>
 #include <iostream>
 #include <string>
+#include <vector>
 
 template <typename T> class SinglyLinkedList {
 
@@ -15,6 +16,12 @@ template <typename T> class SinglyLinkedList {
 public:
 
 	SinglyLinkedList() : head{ nullptr }, length{0} {};
+	SinglyLinkedList(std::vector<T> initialVector) {
+		head = nullptr;
+		for (T value : initialVector) insertAtEnd(value);
+	}
+
+	~SinglyLinkedList() { while (head) head = std::move(head->next); }
 
 
 	void insertAtEnd(T value) {
@@ -72,6 +79,32 @@ public:
 		newLastNode->next = nullptr;
 	}
 
+	void removeFromBeginning() {
+		if (head == nullptr) return;
+		length--;
+		if (length == 0) {
+			head = nullptr;
+			return;
+		}
+		head = std::move(head.get()->next);
+	}
+
+	void removeFromPosition(short position) {
+		if (position < 0) return;
+		if (head == nullptr) return;
+		if (length == 1) {
+			removeFromBeginning();
+			return;
+		}
+		if (position >= length) {
+			removeFromEnd();
+			return;
+		}
+		length--;
+		Node* previousNode = iterate(FIND, position - 1);
+		previousNode->next = std::move(previousNode->next.get()->next);
+	}
+
 	Node* getHead() {
 		return head.get();
 	}
@@ -127,20 +160,15 @@ void workWithLinkedList() {
 	intList.insertAtEnd(14);
 	intList.insertAtEnd(6);
 	intList.printList();
-	intList.removeFromEnd();
-	intList.removeFromEnd();
-	intList.removeFromEnd();
 	std::cout << std::endl;
+
+	intList.removeFromPosition(1);
 	intList.printList();
-	intList.removeFromEnd();
 	std::cout << std::endl;
-	intList.printList();
-	intList.removeFromEnd();
-	std::cout << std::endl;
-	intList.printList();
 
-
-
+	std::vector<int> myVector = { 4, 2, 0, 16, 24, 85, 76 };
+	SinglyLinkedList<int> vectorList(myVector);
+	vectorList.printList();
 
 
 	std::cin.get();
