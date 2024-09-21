@@ -7,7 +7,9 @@ template <typename T> class SinglyLinkedList {
 	struct Node {
 		T value;
 		std::unique_ptr<Node> next;
-		Node(T initialValue = 0) : value{ initialValue }, next{ nullptr } {}
+		Node(T initialValue = 0) : value{ initialValue }, next{ nullptr } { }
+		//Node(T initialValue = 0) : value{ initialValue }, next{ nullptr } { std::cout << "Creating Node" << std::endl; }
+		//~Node() {std::cout << "Destroying Node" << std::endl; }
 	};
 
 public:
@@ -58,12 +60,15 @@ public:
 
 	void removeFromEnd() {
 		if (head == nullptr) return;
-		if (length == 1) {
+		length--;
+		if (length == 0) {
 			head = nullptr;
 			return;
 		}
-		Node* newLastNode = iterate(FIND, length - 2);
-		std::cout << newLastNode->value;
+		Node* newLastNode;
+		if (length > 1) newLastNode = iterate(FIND, length - 1);
+		else newLastNode = head.get();
+
 		newLastNode->next = nullptr;
 	}
 
@@ -72,6 +77,10 @@ public:
 	}
 
 	void printList() {
+		if (!length) {
+			std::cout << "List is empty \n";
+			return;
+		}
 		iterate(PRINT);
 	}
 	
@@ -111,49 +120,26 @@ private:
 
 void workWithLinkedList() {
 
-	//SinglyLinkedList<int> myList;
-	//myList.insertAtEnd(28);
-	//myList.insertAtEnd(13);
-	//myList.insertAtBeginning(41);
-	//myList.insertAtEnd(7);
-	//myList.printList();
-
-	//std::cout << std::endl;
-
-	//SinglyLinkedList<std::string> textList;
-	//textList.insertAtEnd("Hi");
-	//textList.insertAtEnd("I am a text Linked List");
-	//textList.insertAtEnd("My name is Andrew");
-	//textList.printList();
-
 	SinglyLinkedList<int> intList;
-	intList.insertAtEnd(5);
-	intList.printList();
-	std::cout << std::endl;
-
-	intList.removeFromEnd();
-	std::cout << std::endl;
+	intList.insertAtEnd(6);
+	intList.insertAtEnd(2);
+	intList.insertAtEnd(8);
+	intList.insertAtEnd(14);
 	intList.insertAtEnd(6);
 	intList.printList();
-	std::cout << std::endl;
+	intList.removeFromEnd();
+	intList.removeFromEnd();
 	intList.removeFromEnd();
 	std::cout << std::endl;
-
-	intList.insertAtEnd(8);
-	intList.removeFromEnd();
-	std::cout << std::endl;
-
 	intList.printList();
-	std::cout << std::endl;
-	intList.insertAtPosition(2, 0);
-	intList.insertAtPosition(16, 1);
-	intList.insertAtPosition(100, 800);
-	intList.insertAtPosition(64, 3);
-	intList.printList();
-	std::cout << std::endl;
-
 	intList.removeFromEnd();
-	
+	std::cout << std::endl;
+	intList.printList();
+	intList.removeFromEnd();
+	std::cout << std::endl;
+	intList.printList();
+
+
 
 
 
