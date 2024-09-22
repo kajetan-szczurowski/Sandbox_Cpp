@@ -171,5 +171,4 @@ void workWithLinkedList() {
 	vectorList.printList();
 
 
-	std::cin.get();
 }
