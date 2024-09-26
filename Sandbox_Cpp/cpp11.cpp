@@ -1,4 +1,5 @@
 #include <iostream>
+#include <print>
 
 namespace VariadicWriter {
 	template <typename T>
@@ -22,4 +23,5 @@ void work11() {
 	VariadicWriter::print(5,6,7,8,1);
 	VariadicWriter::print();
 	VariadicWriter::print("Hej", 2, 8, 3.17);
+	std::print("\nC++23 print\n");
 }
